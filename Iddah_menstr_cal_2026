@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iddah Calendar 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .calendar {
+            display: inline-block;
+            margin: 10px;
+        }
+        .month {
+            margin-bottom: 20px;
+        }
+        .month h2 {
+            margin: 10px 0;
+        }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 40px);
+            gap: 5px;
+        }
+        .day {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .day.header {
+            background-color: #f0f0f0;
+            cursor: default;
+        }
+        .day.empty {
+            background-color: #f9f9f9;
+            cursor: default;
+        }
+        .day.selectable {
+            background-color: #89CFF0; /* Default baby blue for clean periods */
+            color: white;
+        }
+        .day.selectable:hover {
+            background-color: #d0e8f2;
+        }
+        .day.selected {
+            background-color: #ff4d4d; /* Red for menstruation periods */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Iddah Calendar 2026</h1>
+    <div id="calendar"></div>
+
+    <script>
+        const months = [
+            { name: "January 2026", days: 31, startDay: 4 }, // Thursday
+            { name: "February 2026", days: 28, startDay: 0 }, // Sunday
+            { name: "March 2026", days: 31, startDay: 0 }, // Sunday
+            { name: "April 2026", days: 30, startDay: 3 }, // Wednesday
+            { name: "May 2026", days: 31, startDay: 5 }, // Friday
+            { name: "June 2026", days: 30, startDay: 1 }, // Monday
+            { name: "July 2026", days: 31, startDay: 3 }, // Wednesday
+            { name: "August 2026", days: 31, startDay: 6 }, // Saturday
+            { name: "September 2026", days: 30, startDay: 2 }, // Tuesday
+            { name: "October 2026", days: 31, startDay: 4 }, // Thursday
+            { name: "November 2026", days: 30, startDay: 0 }, // Sunday
+            { name: "December 2026", days: 31, startDay: 2 }  // Tuesday
+        ];
+
+        const calendar = document.getElementById('calendar');
+
+        function createCalendar() {
+            months.forEach(month => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month';
+                monthDiv.innerHTML = `<h2>${month.name}</h2>`;
+                const daysDiv = document.createElement('div');
+                daysDiv.className = 'days';
+
+                // Add day headers
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayNames.forEach(name => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day header';
+                    dayHeader.textContent = name;
+                    daysDiv.appendChild(dayHeader);
+                });
+
+                // Add empty days before the first day
+                for (let i = 0; i < month.startDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'day empty';
+                    daysDiv.appendChild(emptyDay);
+                }
+
+                // Add days
+                for (let day = 1; day <= month.days; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day selectable';
+                    dayDiv.textContent = day;
+                    dayDiv.dataset.date = `${month.name}-${day}`;
+                    dayDiv.addEventListener('click', () => {
+                        dayDiv.classList.toggle('selected');
+                    });
+                    daysDiv.appendChild(dayDiv);
+                }
+
+                monthDiv.appendChild(daysDiv);
+                calendar.appendChild(monthDiv);
+            });
+        }
+
+        createCalendar();
+    </script>
+</body>
+</html>
